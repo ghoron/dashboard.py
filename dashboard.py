@@ -114,7 +114,7 @@ if pg is not None:
     if score_kolommen:
         gemiddelden = pg[score_kolommen].mean()
         fig = go.Figure()
-        fig.add_trace(go.Scatterpolar)
+        fig.add_trace(go.Scatterpolar(
             r=gemiddelden.values,
             theta=gemiddelden.index,
             fill='toself',
