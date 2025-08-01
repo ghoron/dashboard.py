@@ -110,9 +110,12 @@ else:
 pg = safe_read_csv("PG juni 2025.csv")
 if pg is not None:
     st.subheader("Positieve Gezondheid (gemiddelden)")
-    score_kolommen = [c for c in pg.columns if "score" in c.lower()]
-    if score_kolommen:
-        gemiddelden = pg[score_kolommen].mean()
+# Neem alle numerieke kolommen behalve de eerste
+numerieke_kolommen = pg.select_dtypes(include='number').columns
+if len(numerieke_kolommen) > 0:
+    gemiddelden = pg[numerieke_kolommen].mean()
+    # Radar chart
+
         fig = go.Figure()
         fig.add_trace(go.Scatterpolar(
             r=gemiddelden.values,
