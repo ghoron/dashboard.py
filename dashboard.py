@@ -53,7 +53,7 @@ with col3: klok("Fitheid", 8.5)
 st.header("📂 Data uit CSV-bestanden")
 
 # Verwijzingen
-verwijzingen = safe_read_csv("Verwijzingen.csv")
+verwijzingen = safe_read_csv("Verwijzingen 2024.csv")
 if verwijzingen is not None:
     st.subheader("Verwijzingen")
     cols_lower = [c.lower() for c in verwijzingen.columns]
@@ -110,12 +110,10 @@ else:
 pg = safe_read_csv("PG juni 2025.csv")
 if pg is not None:
     st.subheader("Positieve Gezondheid (gemiddelden)")
-# Neem alle numerieke kolommen behalve de eerste
-numerieke_kolommen = pg.select_dtypes(include='number').columns
-if len(numerieke_kolommen) > 0:
-    gemiddelden = pg[numerieke_kolommen].mean()
-    # Radar chart
-
+    # Gebruik alle numerieke kolommen voor radar chart
+    numerieke_kolommen = pg.select_dtypes(include='number').columns
+    if len(numerieke_kolommen) > 0:
+        gemiddelden = pg[numerieke_kolommen].mean()
         fig = go.Figure()
         fig.add_trace(go.Scatterpolar(
             r=gemiddelden.values,
